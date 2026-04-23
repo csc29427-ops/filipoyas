@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
 
-    // ❌ SQL Injection
+    //  SQL Injection
     $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND password = '$password'";
     $resultado = $conn->query($sql);
 
@@ -33,12 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </form>
 
 <?php
-// ❌ XSS
+// XSS
 if (isset($_GET['mensaje'])) {
     echo "<p>" . $_GET['mensaje'] . "</p>";
 }
 
-// ❌ Credenciales expuestas
+// Credenciales expuestas
 $admin_password = "admin123";
 ?>
 
