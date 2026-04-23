@@ -1,26 +1,46 @@
+<?php
+$conn = new mysqli("localhost", "root", "123456", "test");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $usuario = $_POST['usuario'];
+    $password = $_POST['password'];
+
+    // ❌ SQL Injection
+    $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND password = '$password'";
+    $resultado = $conn->query($sql);
+
+    if ($resultado->num_rows > 0) {
+        echo "Bienvenido " . $usuario;
+    } else {
+        echo "Usuario o contraseña incorrectos";
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Probando...</title>
+    <title>Login</title>
 </head>
 <body>
-    <h1> Probando si aún le funciona esta .l.🍆</h1>
-    <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae tenetur neque minima recusandae quisquam cupiditate, vitae nulla nemo culpa? Vero impedit obcaecati deserunt quae veniam excepturi minima architecto officia eius.</p>
+
+<h2>Iniciar Sesión</h2>
+
+<form method="POST">
+    Usuario: <input type="text" name="usuario"><br><br>
+    Contraseña: <input type="password" name="password"><br><br>
+    <input type="submit" value="Ingresar">
+</form>
+
+<?php
+// ❌ XSS
+if (isset($_GET['mensaje'])) {
+    echo "<p>" . $_GET['mensaje'] . "</p>";
+}
+
+// ❌ Credenciales expuestas
+$admin_password = "admin123";
+?>
+
 </body>
 </html>
-
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/69b4a72ca6cbc81c39f85e43/1jjkqq20q';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
-    <!--End of Tawk.to Script-->
